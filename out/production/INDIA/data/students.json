@@ -1,0 +1,42 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "grade": "10th",
+      "booksBorrowed": [
+        {
+          "bookId": 101,
+          "title": "To Kill a Mockingbird",
+          "borrowDate": "2023-09-01",
+          "dueDate": "2023-09-15"
+        },
+        {
+          "bookId": 102,
+          "title": "1984",
+          "borrowDate": "2023-08-20",
+          "dueDate": "2023-09-03"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "grade": "12th",
+      "booksBorrowed": [
+        {
+          "bookId": 103,
+          "title": "Pride and Prejudice",
+          "borrowDate": "2023-09-05",
+          "dueDate": "2023-09-19"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Michael Johnson",
+      "grade": "11th",
+      "booksBorrowed": []
+    }
+  ]
+}
