@@ -1,0 +1,71 @@
+{
+  "books": [
+    {
+      "id": 100,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "themes": [
+        "classic",
+        "tragedy",
+        "1920s"
+      ],
+      "nbAvailable": 3
+    },
+    {
+      "id": 102,
+      "title": "1984",
+      "author": "George Orwell",
+      "themes": [
+        "dystopian",
+        "totalitarianism",
+        "classic"
+      ],
+      "nbAvailable": 5
+    },
+    {
+      "id": 101,
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "themes": [
+        "classic",
+        "racism",
+        "justice"
+      ],
+      "nbAvailable": 2
+    },
+    {
+      "id": 104,
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "themes": [
+        "coming-of-age",
+        "rebellion",
+        "identity"
+      ],
+      "nbAvailable": 4
+    },
+    {
+      "id": 105,
+      "title": "Brave New World",
+      "author": "Aldous Huxley",
+      "themes": [
+        "dystopian",
+        "science fiction",
+        "society"
+      ],
+      "nbAvailable": 6
+    },
+    {
+      "id": 103,
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "themes": [
+        "Fiction",
+        "Romance novel",
+        "Satire",
+        "Novel of manners"
+      ],
+      "nbAvailable": 5
+    }
+  ]
+}
