@@ -34,12 +34,14 @@
         "id": 3
     },
     {
-        "grade": "3th grade",
+        "booksBorrowed": [],
+        "grade": "3th",
         "name": "Omar",
         "id": 4
     },
     {
-        "grade": "8th Grade",
+        "booksBorrowed": [],
+        "grade": "8th",
         "name": "AZE",
         "id": 5
     }

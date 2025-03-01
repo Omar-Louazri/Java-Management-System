@@ -79,12 +79,14 @@ public class LoginSystem {
 
             // Generate a new user ID (You can improve this logic based on your needs)
             int newId = studentsArray.length() + 1;  // Simple example: generate ID based on array size
+            JSONArray borrowedBOOKS = new JSONArray();
 
             // Create a new user JSON object
             JSONObject newUser = new JSONObject();
             newUser.put("name", name);
             newUser.put("id", newId);
             newUser.put("grade", grade);
+            newUser.put("booksBorrowed",borrowedBOOKS);
 
             // Add the new user to the students array
             studentsArray.put(newUser);
