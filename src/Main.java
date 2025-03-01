@@ -12,7 +12,7 @@ public class Main {
 
         while (true) { // Loop to keep showing the menu
             // Clear console (fixes "cls" issue)
-
+            ConsoleUtils.clearScreen();
             System.out.println("\n===== MAIN MENU =====");
             System.out.println("1.Login");
             System.out.println("2.Register");

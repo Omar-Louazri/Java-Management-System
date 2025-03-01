@@ -112,17 +112,17 @@ public class LoginSystem {
     
         while (true) {
             ConsoleUtils.clearScreen();
-            System.out.println("\n ====  LOGIN MENU =====");
-            System.out.println("\n 1. Proceed to Library System");
-            System.out.println("\n 2. Display Student Information");
-            System.out.println("\n 3. Exit");
-    
+            System.out.println("\n =========  LOGIN MENU ==========");
+            System.out.println("\t 1. Proceed to Library System");
+            System.out.println("\t 2. Display Student Information");
+            System.out.println("\t 3. Disconnect");
+            System.out.print("Choose an option: ");
             if (!scanner.hasNextInt()) {
                 System.out.println("ERROR: Invalid input! Please enter a number (1-3).");
                 scanner.next();
                 continue;
             }
-    
+            
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
     
@@ -185,7 +185,7 @@ public class LoginSystem {
     
                 case 3:
                     ConsoleUtils.clearScreen();
-                    System.out.println("\n ====  Exit =====");
+                    System.out.println("\n ====  ARE YOU SURE YOU WANT TO DISCONNECT ? =====");
                     return; // Exit the menu
     
                 default:
