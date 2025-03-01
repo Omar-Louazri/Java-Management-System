@@ -85,6 +85,7 @@ public class Main {
 
             System.out.println("\nPress Enter to continue...");
             scanner.nextLine(); // Pause before reloading menu
+            
         }
     }
 

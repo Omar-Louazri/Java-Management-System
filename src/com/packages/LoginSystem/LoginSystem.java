@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class LoginSystem {
 
     // Define the file path as a constant
-    private static final Path STUDENTS_JSON_PATH = Paths.get("src/data/students.json");
+    private static final Path STUDENTS_JSON_PATH = Paths.get("src/data/users.json");
     private static final Path BOOKS_JSON_PATH = Paths.get("src/data/books.json");
     // Create a logger instance for this class
     private static final Logger logger = Logger.getLogger(LoginSystem.class.getName());
@@ -61,8 +61,8 @@ public class LoginSystem {
 
         } catch (IOException e) {
             // 🔹 Log the exception with a user-friendly message
-            logger.log(Level.SEVERE, "Error: Could not read the students.json file. Please check the file path.", e);
-            System.out.println("Error: Could not read the students.json file. Please check the file path.");
+            logger.log(Level.SEVERE, "Error: Could not read the users.json file. Please check the file path.", e);
+            System.out.println("Error: Could not read the users.json file. Please check the file path.");
         } catch (org.json.JSONException e) {
             // 🔹 Log the exception with a user-friendly message
             logger.log(Level.SEVERE, "Error: JSON file format is incorrect. Please verify the data.", e);
@@ -72,7 +72,7 @@ public class LoginSystem {
 
     public static int register(String name, String grade) {
         try {
-            // 🔹 Read the existing students.json file using the constant
+            // 🔹 Read the existing users.json file using the constant
             String jsonData = new String(Files.readAllBytes(STUDENTS_JSON_PATH));
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray studentsArray = jsonObject.getJSONArray("students");
@@ -99,8 +99,8 @@ public class LoginSystem {
 
         } catch (IOException e) {
             // 🔹 Log the exception with a user-friendly message
-            logger.log(Level.SEVERE, "Error: Could not read/write the students.json file.", e);
-            System.out.println("Error: Could not read/write the students.json file. Please check the file path.");
+            logger.log(Level.SEVERE, "Error: Could not read/write the users.json file.", e);
+            System.out.println("Error: Could not read/write the users.json file. Please check the file path.");
         }
 
         return -1;  // Return -1 if there was an error
@@ -131,7 +131,7 @@ public class LoginSystem {
             switch (choice) {
                 case 1:
                     ConsoleUtils.clearScreen();
-                    LibManager.ManageActions();
+                    LibManager.ManageActions(user);
                     break;
     
                 case 2:
