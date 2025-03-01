@@ -19,7 +19,6 @@
     {
         "booksBorrowed": [{
             "dueDate": "2023-09-19",
-            "title": "Pride and Prejudice",
             "borrowDate": "2023-09-05",
             "bookId": 103
         }],
@@ -44,5 +43,11 @@
         "grade": "8th",
         "name": "AZE",
         "id": 5
+    },
+    {
+        "booksBorrowed": [],
+        "grade": "4th",
+        "name": "Pantheon",
+        "id": 6
     }
 ]}

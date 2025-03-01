@@ -17,10 +17,10 @@ import java.util.logging.Logger;
 
 public class LoginSystem {
 
-    // 🔹 Define the file path as a constant
+    // Define the file path as a constant
     private static final Path STUDENTS_JSON_PATH = Paths.get("src/data/students.json");
     private static final Path BOOKS_JSON_PATH = Paths.get("src/data/books.json");
-    // 🔹 Create a logger instance for this class
+    // Create a logger instance for this class
     private static final Logger logger = Logger.getLogger(LoginSystem.class.getName());
 
     public static void login(Scanner scanner) {
@@ -43,7 +43,7 @@ public class LoginSystem {
 
             for (int i = 0; i < studentsArray.length(); i++) {
                 JSONObject user = studentsArray.getJSONObject(i);
-                String firstName = user.getString("name");  // 🔹 Use getString() directly
+                String firstName = user.getString("name");  // Use getString() directly
                 int id_usr = user.getInt("id");  // 🔹 Use getInt() directly
 
                 if (firstName.equals(username) && id_usr == id) {
@@ -116,7 +116,7 @@ public class LoginSystem {
             ConsoleUtils.clearScreen();
             System.out.println("\n =========  LOGIN MENU ==========");
             System.out.println("\t 1. Proceed to Library System");
-            System.out.println("\t 2. Display Student Information");
+            System.out.println("\t 2. Display Student Information / Boroowed Books");
             System.out.println("\t 3. Disconnect");
             System.out.print("Choose an option: ");
             if (!scanner.hasNextInt()) {
@@ -136,7 +136,7 @@ public class LoginSystem {
     
                 case 2:
                     ConsoleUtils.clearScreen();
-                    System.out.println("\n ====  Student Information =====");
+                    System.out.println("\n ====  Student Information & Borrowed Books =====");
                     System.out.println("ID: " + user.getInt("id"));
                     System.out.println("Name: " + user.getString("name"));
                     System.out.println("Grade: " + user.getString("grade"));
@@ -155,7 +155,7 @@ public class LoginSystem {
                                 String booksJsonData = new String(Files.readAllBytes(BOOKS_JSON_PATH));
                                 JSONObject booksJsonObject = new JSONObject(booksJsonData);
                                 JSONArray booksArray = booksJsonObject.getJSONArray("books");
-        
+                                
                                 for (int i = 0; i < booksBorrowed.length(); i++) {
                                     JSONObject borrowedBook = booksBorrowed.getJSONObject(i);
                                     int bookId = borrowedBook.getInt("bookId");

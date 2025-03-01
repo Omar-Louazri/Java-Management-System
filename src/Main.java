@@ -42,7 +42,21 @@ public class Main {
                     System.out.print("Enter your name: ");
                     String name = scanner.nextLine();
                     System.out.print("Enter your grade: ");
-                    String grade = scanner.nextLine();
+                    int grade_raw = scanner.nextInt();
+                    scanner.nextLine();
+                    String grade = "";
+                    if (grade_raw <= 0 || grade_raw > 12) {
+                        System.out.println("Invalid grade! Please enter a valid grade (1-12).");
+                        continue;
+                    }else if (grade_raw == 1) {
+                        grade = "1st";
+                    }else if (grade_raw == 2) {
+                        grade = "2nd";
+                    }else if (grade_raw == 3) {
+                        grade = "3rd";
+                    }else if (grade_raw > 3) {
+                        grade = grade_raw + "th";
+                    }
                     int id = LoginSystem.register(name,grade);
                     System.out.println("Registration successfully made to the record! \n" +
                                         "Welcome, " + name + "!" +
