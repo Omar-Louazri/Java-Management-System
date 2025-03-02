@@ -1,6 +1,8 @@
 package com.packages.LibrarySystem;
 
+
 import org.json.JSONObject;
+import com.packages.ConsoleUtils;
 import java.util.Scanner;
 
 public class LibManager {
@@ -9,6 +11,8 @@ public class LibManager {
 
         while (true) {
             System.out.println("========== Library System =========");
+            System.out.println("Welcome, " + user.getString("name") + " (" + user.getString("grade") + ")!");
+            System.out.println("0. Show borrowed books");
             System.out.println("1. Borrow a book");
             System.out.println("2. Return a book");
             System.out.println("3. List all books");
@@ -37,16 +41,24 @@ public class LibManager {
             }
 
             switch (nb_choice) {
+                case 0:
+                    ConsoleUtils.clearScreen();
+                    Book.ShowBorrowedBooks(user);
+                    break;
                 case 1:
+                    ConsoleUtils.clearScreen();
                     Book.BorrowFunction(user, scanner);
                     break;
                 case 2:
+                    ConsoleUtils.clearScreen();
                     Book.ReturnFunction(user, scanner);
                     break;
                 case 3:
+                    ConsoleUtils.clearScreen();
                     Book.ListAllBooks();
                     break;
                 case 4:
+                    ConsoleUtils.clearScreen();
                     System.out.println("========== Advanced Search for a Book =========");
                     System.out.println("1. Search by Title");
                     System.out.println("2. Search by Author");
@@ -103,10 +115,13 @@ public class LibManager {
                     }
                     break;
                 case 5:
+                    ConsoleUtils.clearScreen();
                     System.out.println("Return to the main menu.");
                     scanner.nextLine(); // Wait for the user to press Enter
                     return; // Exit the method
                 case 6:
+                    ConsoleUtils.clearScreen();
+
                     if (user.getString("grade").equals("Administrator")) {
                         System.out.print("Enter book title: ");
                         String newBookTitle = scanner.nextLine();
@@ -116,6 +131,8 @@ public class LibManager {
                     }
                     break;
                 case 7:
+                    ConsoleUtils.clearScreen();
+
                     if (user.getString("grade").equals("Administrator")) {
                         System.out.print("Enter book title to remove: ");
                         String bookToRemove = scanner.nextLine();
@@ -126,22 +143,25 @@ public class LibManager {
                     break;
                 case 8:
                     if (user.getString("grade").equals("Administrator")) {
-                        User.ListAllUsers();
+                        ConsoleUtils.clearScreen();
+                        User.ListAllUsers(scanner); // Pass the Scanner object
                     } else {
-                        System.out.println("Invalid choice. Please try again.");
+                        System.out.println("Unauthorized action.");
                     }
                     break;
                 case 9:
                     if (user.getString("grade").equals("Administrator")) {
+                        ConsoleUtils.clearScreen();
                         System.out.print("Enter new user name: ");
                         String newUser = scanner.nextLine();
-                        User.AddUser(newUser);
+                        User.AddUser(newUser, scanner);
                     } else {
                         System.out.println("Invalid choice. Please try again.");
                     }
                     break;
                 case 10:
                     if (user.getString("grade").equals("Administrator")) {
+                        ConsoleUtils.clearScreen();
                         System.out.print("Enter user name to search: ");
                         String searchUser = scanner.nextLine();
                         User.SearchUser(searchUser);
@@ -150,6 +170,7 @@ public class LibManager {
                     }
                     break;
                 default:
+                    ConsoleUtils.clearScreen();
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }

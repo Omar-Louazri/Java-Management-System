@@ -142,7 +142,7 @@ public class LoginSystem {
                     System.out.println("Grade: " + user.getString("grade"));
     
                     
-                    // ✅ Use optJSONArray to avoid exceptions
+                    //Use optJSONArray to avoid exceptions
                     JSONArray booksBorrowed = user.optJSONArray("booksBorrowed");
 
                     if (booksBorrowed == null) {

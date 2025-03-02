@@ -2,6 +2,9 @@ package com.packages.LibrarySystem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.packages.LoginSystem.LoginSystem;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,11 +12,13 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public  class Book {
     private static final Path BOOKS_JSON_PATH = Paths.get("src/data/books.json");
     private static final Path STUDENTS_JSON_PATH = Paths.get("src/data/users.json");
-
+    private static final Logger logger = Logger.getLogger(LoginSystem.class.getName());
     // Helper method to read the books.json file
     private static JSONArray readBooks() throws IOException {
         String content = new String(Files.readAllBytes(BOOKS_JSON_PATH));
@@ -387,6 +392,44 @@ public  class Book {
             }
         } catch (IOException e) {
             System.err.println("Error reading books file: " + e.getMessage());
+        }
+    }
+
+    public static void ShowBorrowedBooks(JSONObject user) {
+        JSONArray booksBorrowed = user.optJSONArray("booksBorrowed");
+        System.out.println("Books Borrowed:");  
+        if (booksBorrowed.length() > 0) {
+            try {
+                // Read the books.json file
+                String booksJsonData = new String(Files.readAllBytes(BOOKS_JSON_PATH));
+                JSONObject booksJsonObject = new JSONObject(booksJsonData);
+                JSONArray booksArray = booksJsonObject.getJSONArray("books");
+                
+                for (int i = 0; i < booksBorrowed.length(); i++) {
+                    JSONObject borrowedBook = booksBorrowed.getJSONObject(i);
+                    int bookId = borrowedBook.getInt("bookId");
+
+                    // Find the book details in the books.json file
+                    for (int j = 0; j < booksArray.length(); j++) {
+                        JSONObject book = booksArray.getJSONObject(j);
+                        if (book.getInt("id") == bookId) {
+                            System.out.println(i + 1 + ". " + book.getString("title"));
+                            System.out.println("\t Book ID: " + book.getInt("id"));
+                            System.out.println("\t Author: " + book.getString("author"));
+                            System.out.println("\t Themes: " + book.getJSONArray("themes").join(", "));
+                            System.out.println("\t Borrowed Date: " + borrowedBook.getString("borrowDate"));
+                            System.out.println("\t Due Date: " + borrowedBook.getString("dueDate"));
+                            System.out.println(); // Space for better readability
+                            break;
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, "Error: Could not read the books.json file.", e);
+                System.out.println("Error: Could not read the books.json file. Please check the file path.");
+            }
+        } else {
+            System.out.println(" None");
         }
     }
 

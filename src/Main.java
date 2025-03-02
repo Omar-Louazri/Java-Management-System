@@ -76,7 +76,6 @@ public class Main {
                 case 4:
                     ConsoleUtils.clearScreen();
                     System.out.println("Disconnected from the system. See you soon!");
-                    scanner.close();
                     System.exit(0);
 
                 default:
