@@ -227,7 +227,7 @@ public  class Book {
             // Get the list of books borrowed by the user
             JSONArray booksBorrowed = user.getJSONArray("booksBorrowed");
     
-            if (booksBorrowed.length() == 0) {
+            if (booksBorrowed.isEmpty()) {
                 System.out.println("You have not borrowed any books.");
                 return;
             }
@@ -242,7 +242,8 @@ public  class Book {
                 for (int j = 0; j < books.length(); j++) {
                     JSONObject book = books.getJSONObject(j);
                     if (book.getInt("id") == bookId) {
-                        System.out.println("ID: " + book.getInt("id") + ", Title: " + book.getString("title") +
+                        System.out.println("ID: " + book.getInt("id") + 
+                                           ", Title: " + book.getString("title") +
                                            ", Borrowed on: " + borrowRecord.getString("borrowDate") +
                                            ", Due on: " + borrowRecord.getString("dueDate"));
                         break;

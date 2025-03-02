@@ -38,10 +38,10 @@ public class LibManager {
 
             switch (nb_choice) {
                 case 1:
-                    Book.BorrowFunction(user, scanner); // Pass the Scanner object
+                    Book.BorrowFunction(user, scanner);
                     break;
                 case 2:
-                    Book.ReturnFunction(user, scanner); // Pass the Scanner object
+                    Book.ReturnFunction(user, scanner);
                     break;
                 case 3:
                     Book.ListAllBooks();
@@ -103,8 +103,8 @@ public class LibManager {
                     }
                     break;
                 case 5:
-                    System.out.println("Logging out...");
-                    scanner.close(); // Close the scanner only when exiting
+                    System.out.println("Return to the main menu.");
+                    scanner.nextLine(); // Wait for the user to press Enter
                     return; // Exit the method
                 case 6:
                     if (user.getString("grade").equals("Administrator")) {
@@ -112,7 +112,7 @@ public class LibManager {
                         String newBookTitle = scanner.nextLine();
                         Book.AddBook(newBookTitle);
                     } else {
-                        System.out.println("Unauthorized action.");
+                        System.out.println("Invalid choice. Please try again.");
                     }
                     break;
                 case 7:
@@ -121,14 +121,14 @@ public class LibManager {
                         String bookToRemove = scanner.nextLine();
                         Book.RemoveBook(bookToRemove);
                     } else {
-                        System.out.println("Unauthorized action.");
+                        System.out.println("Invalid choice. Please try again.");
                     }
                     break;
                 case 8:
                     if (user.getString("grade").equals("Administrator")) {
                         User.ListAllUsers();
                     } else {
-                        System.out.println("Unauthorized action.");
+                        System.out.println("Invalid choice. Please try again.");
                     }
                     break;
                 case 9:
@@ -137,7 +137,7 @@ public class LibManager {
                         String newUser = scanner.nextLine();
                         User.AddUser(newUser);
                     } else {
-                        System.out.println("Unauthorized action.");
+                        System.out.println("Invalid choice. Please try again.");
                     }
                     break;
                 case 10:
@@ -146,7 +146,7 @@ public class LibManager {
                         String searchUser = scanner.nextLine();
                         User.SearchUser(searchUser);
                     } else {
-                        System.out.println("Unauthorized action.");
+                        System.out.println("Invalid choice. Please try again.");
                     }
                     break;
                 default:

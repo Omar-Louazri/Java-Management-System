@@ -1,1 +1,71 @@
-{"books":[{"nbAvailable":3,"themes":["classic","tragedy","1920s"],"author":"F. Scott Fitzgerald","id":100,"title":"The Great Gatsby"},{"nbAvailable":1,"themes":["classic","racism","justice"],"author":"Harper Lee","id":101,"title":"To Kill a Mockingbird"},{"nbAvailable":5,"themes":["dystopian","totalitarianism","classic"],"author":"George Orwell","id":102,"title":"1984"},{"nbAvailable":4,"themes":["Fiction","Romance novel","Satire","Novel of manners"],"author":"Jane Austen","id":103,"title":"Pride and Prejudice"},{"nbAvailable":4,"themes":["coming-of-age","rebellion","identity"],"author":"J.D. Salinger","id":104,"title":"The Catcher in the Rye"},{"nbAvailable":4,"themes":["dystopian","science fiction","society"],"author":"Aldous Huxley","id":105,"title":"Brave New World"}]}
+{
+  "books": [
+    {
+      "author": "F. Scott Fitzgerald",
+      "id": 100,
+      "nbAvailable": 3,
+      "themes": [
+        "classic",
+        "tragedy",
+        "1920s"
+      ],
+      "title": "The Great Gatsby"
+    },
+    {
+      "nbAvailable": 0,
+      "themes": [
+        "classic",
+        "racism",
+        "justice"
+      ],
+      "author": "Harper Lee",
+      "id": 101,
+      "title": "To Kill a Mockingbird"
+    },
+    {
+      "nbAvailable": 5,
+      "themes": [
+        "dystopian",
+        "totalitarianism",
+        "classic"
+      ],
+      "author": "George Orwell",
+      "id": 102,
+      "title": "1984"
+    },
+    {
+      "nbAvailable": 4,
+      "themes": [
+        "Fiction",
+        "Romance novel",
+        "Satire",
+        "Novel of manners"
+      ],
+      "author": "Jane Austen",
+      "id": 103,
+      "title": "Pride and Prejudice"
+    },
+    {
+      "nbAvailable": 4,
+      "themes": [
+        "coming-of-age",
+        "rebellion",
+        "identity"
+      ],
+      "author": "J.D. Salinger",
+      "id": 104,
+      "title": "The Catcher in the Rye"
+    },
+    {
+      "nbAvailable": 4,
+      "themes": [
+        "dystopian",
+        "science fiction",
+        "society"
+      ],
+      "author": "Aldous Huxley",
+      "id": 105,
+      "title": "Brave New World"
+    }
+  ]
+}
