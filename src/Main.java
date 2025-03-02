@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // Clear console (fixes "cls" issue)
+        ConsoleUtils.clearScreen();
         callMenu(); // Start the menu
     }
 
@@ -11,8 +13,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) { // Loop to keep showing the menu
-            // Clear console (fixes "cls" issue)
-            ConsoleUtils.clearScreen();
+            
             System.out.println("\n===== MAIN MENU =====");
             System.out.println("1.Login");
             System.out.println("2.Register");
@@ -22,6 +23,7 @@ public class Main {
 
             // Validate input as an integer
             if (!scanner.hasNextInt()) {
+                ConsoleUtils.clearScreen();
                 System.out.println("ERROR: Invalid input! Please enter a number (1-4).");
                 scanner.next(); // Consume invalid input
                 continue; // Restart loop
@@ -37,14 +39,25 @@ public class Main {
                     break;
 
                 case 2:
-                    ConsoleUtils.clearScreen();
                     System.out.println("Register a new user:");
                     System.out.print("Enter your name: ");
                     String name = scanner.nextLine();
                     System.out.print("Enter your grade: ");
-                    int grade_raw = scanner.nextInt();
-                    scanner.nextLine();
+                    int grade_raw = 0;
+                    try {
+                        grade_raw = scanner.nextInt();
+                        scanner.nextLine();
+                    } catch (Exception e) {
+                        ConsoleUtils.clearScreen();
+                        System.out.println("Invalid grade! Please enter a valid grade (1-12).");
+                        scanner.nextLine(); // Consume invalid input
+                        continue;
+                    }
                     String grade = "";
+                    if (grade_raw <= 0 || grade_raw > 12) {
+                        System.out.println("Invalid grade! Please enter a valid grade (1-12).");
+                        continue;
+                    }
                     if (grade_raw <= 0 || grade_raw > 12) {
                         System.out.println("Invalid grade! Please enter a valid grade (1-12).");
                         continue;

@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e6a769c-91a8-48bd-a4f0-5d1131b47ef1" name="Changes" comment="fix: some issues, comments etc" />
+    <list default="true" id="8e6a769c-91a8-48bd-a4f0-5d1131b47ef1" name="Changes" comment="fix: some issues, comments etc">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/users.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,18 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Omar-Louazri"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Omar-Louazri&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Omar-Louazri/Java-Management-System.git",
-    "accountId": "f6151d34-2e40-413e-90e9-183fd05cc247"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Omar-Louazri/Java-Management-System.git&quot;,
+    &quot;accountId&quot;: &quot;f6151d34-2e40-413e-90e9-183fd05cc247&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/com/packages/LibrarySystem/Book.java" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -114,6 +117,7 @@
       <workItem from="1740696148356" duration="3000" />
       <workItem from="1740875714179" duration="472000" />
       <workItem from="1740876234604" duration="439000" />
+      <workItem from="1740915210653" duration="1128000" />
     </task>
     <task id="LOCAL-00001" summary="fix: some issues, comments etc">
       <option name="closed" value="true" />
