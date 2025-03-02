@@ -3,12 +3,12 @@ package com.packages.LibrarySystem;
 
 import org.json.JSONObject;
 import com.packages.ConsoleUtils;
-import java.util.Scanner;
 
+import java.util.Scanner;
 public class LibManager {
     public static void ManageActions(JSONObject user) {
         Scanner scanner = new Scanner(System.in); // Create a single Scanner instance
-
+      
         while (true) {
             System.out.println("========== Library System =========");
             System.out.println("Welcome, " + user.getString("name") + " (" + user.getString("grade") + ")!");
@@ -48,6 +48,7 @@ public class LibManager {
                 case 1:
                     ConsoleUtils.clearScreen();
                     Book.BorrowFunction(user, scanner);
+                    
                     break;
                 case 2:
                     ConsoleUtils.clearScreen();
@@ -55,64 +56,11 @@ public class LibManager {
                     break;
                 case 3:
                     ConsoleUtils.clearScreen();
-                    Book.ListAllBooks();
+                    Book.ListAllBooks(user,scanner);
                     break;
                 case 4:
                     ConsoleUtils.clearScreen();
-                    System.out.println("========== Advanced Search for a Book =========");
-                    System.out.println("1. Search by Title");
-                    System.out.println("2. Search by Author");
-                    System.out.println("3. Search by Theme");
-                    System.out.println("4. Search by Availability");
-                    System.out.print("Choose a search option: ");
-                    int searchChoice = 0;
-
-                    // Handle invalid input (non-integer)
-                    try {
-                        searchChoice = scanner.nextInt();
-                        scanner.nextLine(); // Consume the newline after nextInt()
-                    } catch (java.util.InputMismatchException e) {
-                        System.out.println("Invalid input. Please enter a number.");
-                        scanner.nextLine(); // Clear the invalid input
-                        break;
-                    }
-
-                    switch (searchChoice) {
-                        case 1:
-                            System.out.print("Enter book title: ");
-                            String title = scanner.nextLine();
-                            Book.SearchBook(title);
-                            break;
-                        case 2:
-                            System.out.print("Enter author name: ");
-                            String author = scanner.nextLine();
-                            Book.SearchByAuthor(author);
-                            break;
-                        case 3:
-                            System.out.print("Enter theme: ");
-                            String theme = scanner.nextLine();
-                            Book.SearchByTheme(theme);
-                            break;
-                        case 4:
-                            System.out.print("Enter minimum number of available copies: ");
-                            int nbAvailable = 0;
-
-                            // Handle invalid input (non-integer)
-                            try {
-                                nbAvailable = scanner.nextInt();
-                                scanner.nextLine(); // Consume the newline after nextInt()
-                            } catch (java.util.InputMismatchException e) {
-                                System.out.println("Invalid input. Please enter a number.");
-                                scanner.nextLine(); // Clear the invalid input
-                                break;
-                            }
-
-                            Book.SearchByAvailability(nbAvailable);
-                            break;
-                        default:
-                            System.out.println("Invalid choice. Returning to main menu.");
-                            break;
-                    }
+                    System.out.println("Waiting for the feature to be implemented.");
                     break;
                 case 5:
                     ConsoleUtils.clearScreen();

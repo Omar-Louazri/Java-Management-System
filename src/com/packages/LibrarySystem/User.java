@@ -57,8 +57,8 @@ public class User {
             System.out.println("\nOptions:");
             System.out.println("1. Search for a user");
             System.out.println("2. Modify a user");
-            System.out.println("3. Next 50 users");
-            System.out.println("4. Previous 50 users");
+            System.out.println("3. Next 10 users");
+            System.out.println("4. Previous 10 users");
             System.out.print("Choose an option (or -1 to cancel): ");
             int choice = 0;
 
@@ -74,6 +74,7 @@ public class User {
 
             // Handle cancel option
             if (choice == -1) {
+                ConsoleUtils.clearScreen();
                 System.out.println("Returning to main menu.");
                 return;
             }
@@ -93,23 +94,23 @@ public class User {
                     modifyUser(users, modifyId, scanner);
                     break;
                 case 3:
-                    // Next 50 users
+                    // Next 10 users
                     startIndex = endIndex;
-                    endIndex = Math.min(endIndex + 50, totalUsers);
+                    endIndex = Math.min(endIndex + 10, totalUsers);
                     if (startIndex >= totalUsers) {
                         System.out.println("No more users to display.");
-                        startIndex = Math.max(0, totalUsers - 50);
+                        startIndex = Math.max(0, totalUsers - 10);
                         endIndex = totalUsers;
                     }
                     break;
                 case 4:
-                    // Previous 50 users
+                    // Previous 10 users
                     endIndex = startIndex;
-                    startIndex = Math.max(0, endIndex - 50);
+                    startIndex = Math.max(0, endIndex - 10);
                     if (startIndex < 0) {
                         System.out.println("Already at the beginning of the list.");
                         startIndex = 0;
-                        endIndex = Math.min(50, totalUsers);
+                        endIndex = Math.min(10, totalUsers);
                     }
                     break;
                 default:
@@ -193,7 +194,7 @@ public class User {
                 String name = user.getString("name");
     
                 // Check if all characters in the search term appear in the name in order
-                if (containsCharactersInOrder(name.toLowerCase(), searchTerm.toLowerCase())) {
+                if (ConsoleUtils.containsCharactersInOrder(name.toLowerCase(), searchTerm.toLowerCase())) {
                     System.out.println(String.format(
                         "%-3d. ID: %-10d Name: %-20s Grade: %s",
                         i + 1, id, name, user.getString("grade")
@@ -227,6 +228,7 @@ public class User {
     
             // Handle cancel option
             if (choice == -1) {
+                ConsoleUtils.clearScreen(); 
                 System.out.println("Returning to main menu.");
                 return;
             }
@@ -250,6 +252,7 @@ public class User {
                     break;
                 case 3:
                     // Return to main menu
+                    ConsoleUtils.clearScreen(); 
                     System.out.println("Returning to main menu.");
                     exitSearch = true;
                     break;
@@ -259,17 +262,7 @@ public class User {
             }
         }
     }
-    // Helper method to check if all characters in the search term appear in the name in order
-    private static boolean containsCharactersInOrder(String name, String searchTerm) {
-        int index = -1;
-        for (char c : searchTerm.toCharArray()) {
-            index = name.indexOf(c, index + 1);
-            if (index == -1) {
-                return false;
-            }
-        }
-        return true;
-    }
+    
     // Add a new user
     public static void AddUser(String newUserName, Scanner scanner) {   
         try {
@@ -286,6 +279,7 @@ public class User {
     
                 // Check if the user wants to cancel
                 if (grade.equals("-1")) {
+                    ConsoleUtils.clearScreen(); 
                     System.out.println("User addition canceled. Returning to main menu.");
                     return; // Exit the method and return to the main menu
                 }

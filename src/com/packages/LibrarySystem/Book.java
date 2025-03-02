@@ -3,6 +3,7 @@ package com.packages.LibrarySystem;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.packages.ConsoleUtils;
 import com.packages.LoginSystem.LoginSystem;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public  class Book {
     private static final Path STUDENTS_JSON_PATH = Paths.get("src/data/users.json");
     private static final Logger logger = Logger.getLogger(LoginSystem.class.getName());
     // Helper method to read the books.json file
-    private static JSONArray readBooks() throws IOException {
+    public static JSONArray readBooks() throws IOException {
         String content = new String(Files.readAllBytes(BOOKS_JSON_PATH));
         JSONObject jsonObject = new JSONObject(content);
         return jsonObject.getJSONArray("books");
@@ -50,19 +51,274 @@ public  class Book {
     }
 
     // List all books
-    public static void ListAllBooks() {
+    public static void ListAllBooks(JSONObject user, Scanner scanner) {
         try {
             JSONArray books = readBooks();
-            System.out.println("========== List of All Books ==========");
-            for (int i = 0; i < books.length(); i++) {
-                JSONObject book = books.getJSONObject(i);
-                System.out.println(book);
+            int totalBooks = books.length();
+            int startIndex = 0;
+            int pageSize = 10; // Number of books to display per page
+    
+            while (true) {
+                System.out.println("========== List of Books (Showing " + (startIndex + 1) + " to " + Math.min(startIndex + pageSize, totalBooks) + " of " + totalBooks + ") ==========");
+                for (int i = startIndex; i < Math.min(startIndex + pageSize, totalBooks); i++) {
+                    JSONObject book = books.getJSONObject(i);
+                    int id = book.getInt("id");
+                    String title = book.getString("title");
+                    String author = book.getString("author");
+                    int nbAvailable = book.getInt("nbAvailable");
+    
+                    // Format the output with fixed-width columns
+                    String formattedOutput = String.format(
+                        "%-3d. ID: %-10d Title: %-30s Author: %-20s Available: %d",
+                        i + 1, id, title, author, nbAvailable
+                    );
+                    System.out.println(formattedOutput);
+                }
+    
+                // Display options
+                System.out.println("\nOptions:");
+                System.out.println("1. Search for a book");
+                System.out.println("2. Next 10 books");
+                System.out.println("3. Previous 10 books");
+                System.out.println("4. Borrow a book");
+                if (user.getString("grade").equals("Administrator")) {
+                    System.out.println("5. Modify a book");
+                    
+                }
+                System.out.print("Choose an option (or -1 to cancel): ");
+                int choice = 0;
+    
+                // Handle invalid input (non-integer)
+                try {
+                    choice = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline after nextInt()
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                    scanner.nextLine(); // Clear the invalid input
+                    continue; // Restart the loop
+                }
+    
+                // Handle cancel option
+                if (choice == -1) {
+                    ConsoleUtils.clearScreen();
+                    System.out.println("Returning to main menu.");
+                    return;
+                }
+    
+                switch (choice) {
+                    case 1:
+                        // Search for a book
+                        System.out.print("Enter the Title,Author or ID of the book to search: ");
+                        String searchTerm = scanner.nextLine();
+                        searchBook(books, searchTerm, scanner, user);
+                        break;
+                    case 2:
+                        ConsoleUtils.clearScreen();
+                        // Next 10 books
+                        startIndex = Math.min(startIndex + pageSize, totalBooks);
+                        if (startIndex >= totalBooks) {
+                            System.out.println("No more books to display.");
+                            startIndex = Math.max(0, totalBooks - pageSize);
+                        }
+                        break;
+                    case 3:
+                        ConsoleUtils.clearScreen(); 
+                        // Previous 10 books
+                        startIndex = Math.max(0, startIndex - pageSize);
+                        if (startIndex < 0) {
+                            System.out.println("Already at the beginning of the list.");
+                            startIndex = 0;
+                        }
+                        break;
+                    case 4:
+                        // Borrow a book
+                        BorrowFunction(user, scanner); // No need to pass bookId
+                        books = readBooks(); // Reload books data after borrowing
+                        break;
+                    case 5:
+                        if (!user.getString("grade").equals("Administrator")) {
+                            ConsoleUtils.clearScreen();
+                            System.out.println("Invalid choice. Please try again.");
+                            break;
+                        }else{
+                            // Modify a book
+                            System.out.print("Enter the ID of the book to modify: ");
+                            int modifyId = scanner.nextInt();
+                            scanner.nextLine(); // Consume newline
+                            modifyBook(books, modifyId, scanner);
+                            break;
+                        }
+                    default:
+                        ConsoleUtils.clearScreen(); 
+                        System.out.println("Invalid choice. Please try again.");
+                        break;
+                }
             }
         } catch (IOException e) {
             System.err.println("Error reading books file: " + e.getMessage());
         }
     }
-
+    // ================== Helper Methods for ListAllBooks ==================
+    private static void modifyBook(JSONArray books, int modifyId, Scanner scanner) {
+        boolean found = false;
+        for (int i = 0; i < books.length(); i++) {
+            JSONObject book = books.getJSONObject(i);
+            if (book.getInt("id") == modifyId) {
+                found = true;
+    
+                System.out.println("Current book details:");
+                System.out.println(String.format(
+                    "ID: %-10d Title: %-30s Author: %-20s Available: %d",
+                    book.getInt("id"), book.getString("title"), book.getString("author"), book.getInt("nbAvailable")
+                ));
+    
+                System.out.print("Enter new title (or press Enter to keep current): ");
+                String newTitle = scanner.nextLine().trim();
+                if (!newTitle.isEmpty()) {
+                    book.put("title", newTitle);
+                }
+    
+                System.out.print("Enter new author (or press Enter to keep current): ");
+                String newAuthor = scanner.nextLine().trim();
+                if (!newAuthor.isEmpty()) {
+                    book.put("author", newAuthor);
+                }
+    
+                System.out.print("Enter new number of available copies (or press Enter to keep current): ");
+                String newNbAvailable = scanner.nextLine().trim();
+                if (!newNbAvailable.isEmpty()) {
+                    try {
+                        int nbAvailable = Integer.parseInt(newNbAvailable);
+                        if (nbAvailable >= 0) {
+                            book.put("nbAvailable", nbAvailable);
+                        } else {
+                            System.out.println("Invalid number of copies. Must be a non-negative integer.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Number of copies must be an integer.");
+                    }
+                }
+    
+                // Save changes to the file
+                try {
+                    ConsoleUtils.clearScreen();
+                    writeBooks(books);
+                    System.out.println("Book updated successfully.");
+                } catch (IOException e) {
+                    System.err.println("Error updating book: " + e.getMessage());
+                }
+                break;
+            }
+        }
+    
+        if (!found) {
+            System.out.println("No book found with ID: " + modifyId);
+        }
+    }
+    //======================================================================
+    private static void searchBook(JSONArray books, String searchTerm, Scanner scanner, JSONObject user) {
+        int startIndex = 0;
+        int pageSize = 10; // Number of books to display per page
+        boolean exitSearch = false;
+    
+        while (!exitSearch) {
+            ConsoleUtils.clearScreen(); 
+            System.out.println("========== List of Books (Filtered) ==========");
+            int endIndex = Math.min(startIndex + pageSize, books.length());
+            boolean found = false;
+    
+            for (int i = startIndex; i < endIndex; i++) {
+                JSONObject book = books.getJSONObject(i);
+                int id = book.getInt("id");
+                String title = book.getString("title");
+                String author = book.getString("author");
+    
+                // Check if all characters in the search term appear in the title or ID
+                if (ConsoleUtils.containsCharactersInOrder(title.toLowerCase(), searchTerm.toLowerCase()) ||
+                    String.valueOf(id).contains(searchTerm) ||
+                    ConsoleUtils.containsCharactersInOrder(author.toLowerCase(), searchTerm.toLowerCase())) {
+                    System.out.println(String.format(
+                        "%-3d. ID: %-10d Title: %-30s Author: %-20s Available: %d",
+                        i + 1, id, title, book.getString("author"), book.getInt("nbAvailable")
+                    ));
+                    found = true;
+                }
+            }
+    
+            if (!found) {
+                System.out.println("No books found matching: " + searchTerm);
+                return; // Exit the search if no matches are found
+            }
+    
+            // Display pagination options
+            System.out.println("\nOptions:");
+            System.out.println("1. Next 10 books");
+            System.out.println("2. Previous 10 books");
+            System.out.println("3. Borrow a book");
+            if (user.getString("grade").equals("Administrator")) {
+                System.out.println("4. Modify a book");
+            }
+            System.out.print("Choose an option (or -1 to cancel): ");
+            int choice = 0;
+    
+            // Handle invalid input (non-integer)
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline after nextInt()
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // Clear the invalid input
+                continue; // Restart the loop
+            }
+    
+            // Handle cancel option
+            if (choice == -1) {
+                ConsoleUtils.clearScreen();
+                System.out.println("Returning to main menu.");
+                return;
+            }
+    
+            switch (choice) {
+                case 1:
+                    // Next 10 books
+                    startIndex = endIndex;
+                    if (startIndex >= books.length()) {
+                        System.out.println("No more books to display.");
+                        startIndex = Math.max(0, books.length() - pageSize);
+                    }
+                    break;
+                case 2:
+                    // Previous 10 books
+                    startIndex = Math.max(0, startIndex - pageSize);
+                    if (startIndex < 0) {
+                        System.out.println("Already at the beginning of the list.");
+                        startIndex = 0;
+                    }
+                    break;
+                case 3:
+                    // Borrow a book
+                    BorrowFunction(user, scanner);
+                    break;
+                case 4:
+                    if (!user.getString("grade").equals("Administrator")) {
+                        ConsoleUtils.clearScreen();
+                        System.out.println("Invalid choice. Please try again.");
+                        break;
+                    }else{
+                        // Modify a book
+                        System.out.print("Enter the ID of the book to modify: ");
+                        int modifyId = scanner.nextInt();
+                        scanner.nextLine(); // Consume newline
+                        modifyBook(books, modifyId, scanner);
+                        break;
+                    }
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
+    //======================================================================        
     // Add a new book
     public static void AddBook(String newBookTitle) {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -124,47 +380,21 @@ public  class Book {
     // Borrow a book
     public static void BorrowFunction(JSONObject user, Scanner scanner) {
         try {
-            JSONArray books = readBooks();
-            JSONArray users = readUsers();
-    
-            // Display all books
-            System.out.println("========== List of All Books ==========");
-            for (int i = 0; i < books.length(); i++) {
-                JSONObject book = books.getJSONObject(i);
-                System.out.println("ID: " + book.getInt("id") + ", Title: " + book.getString("title") + 
-                                   ", Available: " + book.getInt("nbAvailable"));
-            }
-    
-            // Allow the user to search for a book by title
-            System.out.print("Enter a book title to search (or press Enter to skip) (-1 to cancel): ");
-            String searchTitle = scanner.nextLine();
-            if (searchTitle.equals("-1")) {
-                System.out.println("Return operation canceled. Returning to main menu.");
-                return; // Exit the method and return to the main menu
-            }
-            if (!searchTitle.isEmpty()) {
-                boolean found = false;
-                for (int i = 0; i < books.length(); i++) {
-                    JSONObject book = books.getJSONObject(i);
-                    if (book.getString("title").toLowerCase().contains(searchTitle.toLowerCase())) {
-                        System.out.println("ID: " + book.getInt("id") + ", Title: " + book.getString("title") + 
-                                          ", Available: " + book.getInt("nbAvailable"));
-                        found = true;
-                    }
-                }
-                if (!found) {
-                    System.out.println("No books found with title: " + searchTitle);
-                }
-            }
+            JSONArray books = readBooks(); // Load books data
+            JSONArray users = readUsers(); // Load users data
     
             // Prompt the user to enter the book ID to borrow
-            System.out.print("Enter the ID of the book you want to borrow: ");
+            System.out.print("Enter the ID of the book you want to borrow (or -1 to cancel): ");
             int bookId = scanner.nextInt();
             scanner.nextLine(); // Consume newline
+    
+            // Check if the user wants to cancel
             if (bookId == -1) {
-                System.out.println("Return operation canceled. Returning to main menu.");
+                ConsoleUtils.clearScreen();
+                System.out.println("Borrow operation canceled. Returning to main menu.");
                 return; // Exit the method and return to the main menu
             }
+    
             // Check if the book exists
             JSONObject selectedBook = null;
             for (int i = 0; i < books.length(); i++) {
@@ -199,7 +429,7 @@ public  class Book {
     
             // Update book availability
             selectedBook.put("nbAvailable", nbAvailable - 1);
-            writeBooks(books);
+            writeBooks(books); // Save updated books data
     
             // Add the book to the user's borrowed books
             JSONObject borrowRecord = new JSONObject();
@@ -216,9 +446,12 @@ public  class Book {
                     break;
                 }
             }
-            writeUsers(users);
+            writeUsers(users); // Save updated users data
     
             System.out.println("Book borrowed successfully: " + selectedBook.getString("title"));
+    
+            // Refresh the books data after borrowing
+            books = readBooks(); // Reload books data to reflect changes
         } catch (IOException e) {
             System.err.println("Error borrowing book: " + e.getMessage());
         }
@@ -261,6 +494,7 @@ public  class Book {
             int bookId = scanner.nextInt();
             scanner.nextLine(); // Consume newline
             if (bookId == -1) {
+                ConsoleUtils.clearScreen();
                 System.out.println("Return operation canceled. Returning to main menu.");
                 return; // Exit the method and return to the main menu
             }
@@ -307,93 +541,6 @@ public  class Book {
         }
     }
    
-    // Search for a book by title
-    public static void SearchBook(String searchTerm) {
-        try {
-            JSONArray books = readBooks();
-            boolean found = false;
-            for (int i = 0; i < books.length(); i++) {
-                JSONObject book = books.getJSONObject(i);
-                String title = book.getString("title");
-                if (title.equalsIgnoreCase(searchTerm)) {
-                    System.out.println("Book found: " + book);
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                System.out.println("No book found with title: " + searchTerm);
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading books file: " + e.getMessage());
-        }
-    }
-
-    // Search for books by author
-    public static void SearchByAuthor(String author) {
-        try {
-            JSONArray books = readBooks();
-            boolean found = false;
-            for (int i = 0; i < books.length(); i++) {
-                JSONObject book = books.getJSONObject(i);
-                String bookAuthor = book.getString("author");
-                if (bookAuthor.equalsIgnoreCase(author)) {
-                    System.out.println("Book found: " + book);
-                    found = true;
-                }
-            }
-            if (!found) {
-                System.out.println("No books found by author: " + author);
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading books file: " + e.getMessage());
-        }
-    }
-
-    // Search for books by theme
-    public static void SearchByTheme(String theme) {
-        try {
-            JSONArray books = readBooks();
-            boolean found = false;
-            for (int i = 0; i < books.length(); i++) {
-                JSONObject book = books.getJSONObject(i);
-                JSONArray themes = book.getJSONArray("themes");
-                for (int j = 0; j < themes.length(); j++) {
-                    if (themes.getString(j).equalsIgnoreCase(theme)) {
-                        System.out.println("Book found: " + book);
-                        found = true;
-                        break;
-                    }
-                }
-            }
-            if (!found) {
-                System.out.println("No books found with theme: " + theme);
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading books file: " + e.getMessage());
-        }
-    }
-
-    // Search for books by availability
-    public static void SearchByAvailability(int nbAvailable) {
-        try {
-            JSONArray books = readBooks();
-            boolean found = false;
-            for (int i = 0; i < books.length(); i++) {
-                JSONObject book = books.getJSONObject(i);
-                int availableCopies = book.getInt("nbAvailable");
-                if (availableCopies >= nbAvailable) {
-                    System.out.println("Book found: " + book);
-                    found = true;
-                }
-            }
-            if (!found) {
-                System.out.println("No books found with at least " + nbAvailable + " copies available.");
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading books file: " + e.getMessage());
-        }
-    }
 
     public static void ShowBorrowedBooks(JSONObject user) {
         JSONArray booksBorrowed = user.optJSONArray("booksBorrowed");

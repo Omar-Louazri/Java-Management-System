@@ -13,7 +13,18 @@ public class ConsoleUtils {
                 System.out.flush();
             }
         } catch (IOException | InterruptedException ex) {
-            for (int i = 0; i < 50; i++) System.out.println(); // Fallback: Print blank lines
+            for (int i = 0; i < 10; i++) System.out.println(); // Fallback: Print blank lines
         }
+    }
+    // Helper method to check if all characters in the search term appear in the name in order
+    public static boolean containsCharactersInOrder(String name, String searchTerm) {
+        int index = -1;
+        for (char c : searchTerm.toCharArray()) {
+            index = name.indexOf(c, index + 1);
+            if (index == -1) {
+                return false;
+            }
+        }
+        return true;
     }
 }
