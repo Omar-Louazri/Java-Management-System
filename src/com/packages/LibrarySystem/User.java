@@ -320,22 +320,24 @@ public class User {
     }
 
     // Search for a user by name
-    public static void SearchUser(String searchName) {
+    public static void deleteUser(int searchID) {
         try {
             JSONArray users = readUsers();
             boolean found = false;
 
             for (int i = 0; i < users.length(); i++) {
                 JSONObject user = users.getJSONObject(i);
-                if (user.getString("name").equalsIgnoreCase(searchName)) {
-                    System.out.println("User found: " + user);
+                if (user.getInt("id") == searchID) {
                     found = true;
+                    users.remove(i);
+                    writeUsers(users);
+                    System.out.println("User deleted successfully: " + user.getString("name"));
                     break;
                 }
             }
 
             if (!found) {
-                System.out.println("No user found with name: " + searchName);
+                System.out.println("No user found with ID: " + searchID);
             }
         } catch (IOException e) {
             System.err.println("Error searching for user: " + e.getMessage());

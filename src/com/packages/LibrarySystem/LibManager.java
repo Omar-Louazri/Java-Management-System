@@ -12,11 +12,10 @@ public class LibManager {
         while (true) {
             System.out.println("========== Library System =========");
             System.out.println("Welcome, " + user.getString("name") + " (" + user.getString("grade") + ")!");
-            System.out.println("0. Show borrowed books");
             System.out.println("1. Borrow a book");
             System.out.println("2. Return a book");
             System.out.println("3. List all books");
-            System.out.println("4. Search for a book");
+            System.out.println("4. Show borrowed books");
             System.out.println("5. Disconnect");
 
             if (user.getString("grade").equals("Administrator")) {
@@ -24,7 +23,7 @@ public class LibManager {
                 System.out.println("7. Remove a book");
                 System.out.println("8. List all users");
                 System.out.println("9. Add a user");
-                System.out.println("10. Search for a user");
+                System.out.println("10. Delete a user");
             }
 
             System.out.print("Choose an option: ");
@@ -41,10 +40,6 @@ public class LibManager {
             }
 
             switch (nb_choice) {
-                case 0:
-                    ConsoleUtils.clearScreen();
-                    Book.ShowBorrowedBooks(user);
-                    break;
                 case 1:
                     ConsoleUtils.clearScreen();
                     Book.BorrowFunction(user, scanner);
@@ -60,7 +55,7 @@ public class LibManager {
                     break;
                 case 4:
                     ConsoleUtils.clearScreen();
-                    System.out.println("Waiting for the feature to be implemented.");
+                    Book.ShowBorrowedBooks(user);
                     break;
                 case 5:
                     ConsoleUtils.clearScreen();
@@ -110,9 +105,9 @@ public class LibManager {
                 case 10:
                     if (user.getString("grade").equals("Administrator")) {
                         ConsoleUtils.clearScreen();
-                        System.out.print("Enter user name to search: ");
-                        String searchUser = scanner.nextLine();
-                        User.SearchUser(searchUser);
+                        System.out.print("Enter user ID to DELETE: ");
+                        int searchUser = scanner.nextInt();
+                        User.deleteUser(searchUser);
                     } else {
                         System.out.println("Invalid choice. Please try again.");
                     }
