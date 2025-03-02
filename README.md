@@ -1,6 +1,7 @@
 # Java-Management-System
 This project is a Java-based Library Management System designed to manage student accounts, book borrowing, and book inventory. It includes a login system where students can log in using their unique ID and name. 
-#Before we dive in 
+# Before we dive in 
+
 Why Java ? why not python ?
 Based on my experience with Python, I can build this system easily. However, I want to challenge myself to develop my Java fundamentals. While learning Java, I asked myself, "What’s the best project I can create to sharpen my skills quickly?"—and here we are.
 
