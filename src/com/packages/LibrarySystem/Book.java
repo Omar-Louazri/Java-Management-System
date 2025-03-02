@@ -66,11 +66,11 @@ public  class Book {
                     String title = book.getString("title");
                     String author = book.getString("author");
                     int nbAvailable = book.getInt("nbAvailable");
-    
+                    String displayTitle = title.length() > 27 ? title.substring(0, 27) + "..." : title;
                     // Format the output with fixed-width columns
                     String formattedOutput = String.format(
                         "%-3d. ID: %-10d Title: %-30s Author: %-20s Available: %d",
-                        i + 1, id, title, author, nbAvailable
+                        i + 1, id, displayTitle, author, nbAvailable
                     );
                     System.out.println(formattedOutput);
                 }
@@ -232,14 +232,15 @@ public  class Book {
                 int id = book.getInt("id");
                 String title = book.getString("title");
                 String author = book.getString("author");
-    
                 // Check if all characters in the search term appear in the title or ID
                 if (ConsoleUtils.containsCharactersInOrder(title.toLowerCase(), searchTerm.toLowerCase()) ||
                     String.valueOf(id).contains(searchTerm) ||
                     ConsoleUtils.containsCharactersInOrder(author.toLowerCase(), searchTerm.toLowerCase())) {
+                        String displayTitle = title.length() > 28 ? title.substring(0, 25) + "..." : title;
+
                     System.out.println(String.format(
-                        "%-3d. ID: %-10d Title: %-30s Author: %-20s Available: %d",
-                        i + 1, id, title, book.getString("author"), book.getInt("nbAvailable")
+                        "%-3d. ID: %-10d Title: %-30s Author: %-20s Available: %d %d",
+                        i + 1, id, displayTitle, book.getString("author"), book.getInt("nbAvailable")
                     ));
                     found = true;
                 }

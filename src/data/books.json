@@ -1,1 +1,239 @@
-{"books":[{"nbAvailable":0,"themes":["classic","tragedy","1920s"],"author":"F. Scott Fitzgerald","id":100,"title":"The Great Gatsby"},{"nbAvailable":0,"themes":["classic","racism","justice"],"author":"Harper Lee","id":101,"title":"To Kill a Mockingbird"},{"nbAvailable":1,"themes":["dystopian","totalitarianism","classic"],"author":"George Orwell","id":102,"title":"1984"},{"nbAvailable":4,"themes":["Fiction","Romance novel","Satire","Novel of manners"],"author":"Jane Austen","id":103,"title":"Pride and Prejudice"},{"nbAvailable":2,"themes":["coming-of-age","rebellion","identity"],"author":"J.D. Salinger","id":104,"title":"The Catcher in the Rye"},{"nbAvailable":4,"themes":["dystopian","science fiction","society"],"author":"Aldous Huxley","id":105,"title":"Brave New World"},{"nbAvailable":3,"themes":["self-help","Order"," Chaos","Responsibility","Truth","Knowledge and Wisdom"],"author":"Jordan Peterson","id":106,"title":"12 Rules for Life"}]}
+{
+    "books": [
+        {
+            "nbAvailable": 0,
+            "themes": [
+                "classic",
+                "tragedy",
+                "1920s"
+            ],
+            "author": "F. Scott Fitzgerald",
+            "id": 100,
+            "title": "The Great Gatsby"
+        },
+        {
+            "nbAvailable": 0,
+            "themes": [
+                "classic",
+                "racism",
+                "justice"
+            ],
+            "author": "Harper Lee",
+            "id": 101,
+            "title": "To Kill a Mockingbird"
+        },
+        {
+            "nbAvailable": 1,
+            "themes": [
+                "dystopian",
+                "totalitarianism",
+                "classic"
+            ],
+            "author": "George Orwell",
+            "id": 102,
+            "title": "1984"
+        },
+        {
+            "nbAvailable": 4,
+            "themes": [
+                "Fiction",
+                "Romance novel",
+                "Satire",
+                "Novel of manners"
+            ],
+            "author": "Jane Austen",
+            "id": 103,
+            "title": "Pride and Prejudice"
+        },
+        {
+            "nbAvailable": 2,
+            "themes": [
+                "coming-of-age",
+                "rebellion",
+                "identity"
+            ],
+            "author": "J.D. Salinger",
+            "id": 104,
+            "title": "The Catcher in the Rye"
+        },
+        {
+            "nbAvailable": 4,
+            "themes": [
+                "dystopian",
+                "science fiction",
+                "society"
+            ],
+            "author": "Aldous Huxley",
+            "id": 105,
+            "title": "Brave New World"
+        },
+        {
+            "nbAvailable": 3,
+            "themes": [
+                "self-help",
+                "Order",
+                "Chaos",
+                "Responsibility",
+                "Truth",
+                "Knowledge and Wisdom"
+            ],
+            "author": "Jordan Peterson",
+            "id": 106,
+            "title": "12 Rules for Life"
+        },
+        {
+            "nbAvailable": 5,
+            "themes": [
+                "fantasy",
+                "magic",
+                "adventure"
+            ],
+            "author": "J.K. Rowling",
+            "id": 107,
+            "title": "Harry Potter and the Sorcerer's Stone"
+        },
+        {
+            "nbAvailable": 2,
+            "themes": [
+                "fantasy",
+                "epic",
+                "adventure"
+            ],
+            "author": "J.R.R. Tolkien",
+            "id": 108,
+            "title": "The Hobbit"
+        },
+        {
+            "nbAvailable": 1,
+            "themes": [
+                "philosophy",
+                "existentialism",
+                "self-discovery"
+            ],
+            "author": "Paulo Coelho",
+            "id": 109,
+            "title": "The Alchemist"
+        },
+        {
+            "nbAvailable": 3,
+            "themes": [
+                "mystery",
+                "crime",
+                "detective"
+            ],
+            "author": "Agatha Christie",
+            "id": 110,
+            "title": "Murder on the Orient Express"
+        },
+        {
+            "nbAvailable": 6,
+            "themes": [
+                "science fiction",
+                "dystopian",
+                "adventure"
+            ],
+            "author": "Suzanne Collins",
+            "id": 111,
+            "title": "The Hunger Games"
+        },
+        {
+            "nbAvailable": 0,
+            "themes": [
+                "psychology",
+                "self-improvement",
+                "habits"
+            ],
+            "author": "James Clear",
+            "id": 112,
+            "title": "Atomic Habits"
+        },
+        {
+            "nbAvailable": 4,
+            "themes": [
+                "philosophy",
+                "stoicism",
+                "self-improvement"
+            ],
+            "author": "Ryan Holiday",
+            "id": 113,
+            "title": "The Obstacle Is the Way"
+        },
+        {
+            "nbAvailable": 2,
+            "themes": [
+                "business",
+                "entrepreneurship",
+                "success"
+            ],
+            "author": "Napoleon Hill",
+            "id": 114,
+            "title": "Think and Grow Rich"
+        },
+        {
+            "nbAvailable": 3,
+            "themes": [
+                "biography",
+                "inspiration",
+                "leadership"
+            ],
+            "author": "Walter Isaacson",
+            "id": 115,
+            "title": "Steve Jobs"
+        },
+        {
+            "nbAvailable": 1,
+            "themes": [
+                "dystopian",
+                "political satire",
+                "totalitarianism"
+            ],
+            "author": "George Orwell",
+            "id": 116,
+            "title": "Animal Farm"
+        },
+        {
+            "nbAvailable": 5,
+            "themes": [
+                "self-help",
+                "communication",
+                "relationships"
+            ],
+            "author": "Dale Carnegie",
+            "id": 117,
+            "title": "How to Win Friends and Influence People"
+        },
+        {
+            "nbAvailable": 2,
+            "themes": [
+                "romance",
+                "drama",
+                "historical fiction"
+            ],
+            "author": "Margaret Mitchell",
+            "id": 118,
+            "title": "Gone with the Wind"
+        },
+        {
+            "nbAvailable": 0,
+            "themes": [
+                "horror",
+                "psychological thriller",
+                "mystery"
+            ],
+            "author": "Stephen King",
+            "id": 119,
+            "title": "The Shining"
+        },
+        {
+            "nbAvailable": 4,
+            "themes": [
+                "mystery",
+                "psychological thriller",
+                "suspense"
+            ],
+            "author": "Gillian Flynn",
+            "id": 120,
+            "title": "Gone Girl"
+        }
+    ]
+}
